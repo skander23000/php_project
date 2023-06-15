@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 // se connecter à la base de données avec PDO MySQL
 include 'functions.php';
 $pdo = pdo_connect_mysql();

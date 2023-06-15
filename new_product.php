@@ -1,25 +1,34 @@
 <?php
 
-if(isset($_POST['add']))
-{
-$name = $_POST['name'];
-$desc = $_POST['desc'];
-$price=$_POST['price'];
-$quantity = $_POST['quantity'];
-$img = $_POST['img'];
-$date_added= $_POST['date_added'];
+if (isset($_POST['add'])) {
+    $name = $_POST['name'];
+    $desc = $_POST['desc'];
+    $price = $_POST['price'];
+    $quantity = $_POST['quantity'];
+    $img = $_POST['img'];
+    $date_added = $_POST['date_added'];
 
-$sql = "INSERT INTO products (name, desc, price, quantity, img, date_added)  VALUES (:name, :desc, :price, :quantity, :img, :date_added)";
+    try {
+            $sql = "INSERT INTO products (`name`, `desc`, `price`, `quantity`, `img`, `date_added`)  VALUES (:name, :desc, :price, :quantity, :img, :date_added)";
 
-$stmt = $pdo->prepare($sql);
+            $stmt = $pdo->prepare($sql);
 
-$stmt->execute([':name' => $name,':desc' => $desc,':price' => $price,':quantity' => $quantity,':img' => $img,':date_added' => $date_added]);
-
+            $stmt->execute([
+                ':name' => $name,
+                ':desc' => $desc,
+                ':price' => $price,
+                ':quantity' => $quantity,
+                ':img' => $img,
+                ':date_added' => $date_added
+            ]);
+    } catch (PDOException $e) {
+        die('PDO Error: ' . $e->getMessage());
+    }
 }
 ?>
 <!------------------------------------------------- LA PARTIE  HTML/CSS  DU NEW_PRODUIT  ------------------------------------------------------->
 
-<?=template_header('Cart')?>
+<?= template_header('Cart') ?>
 <style>
 label {
     width: 100px;
@@ -46,7 +55,7 @@ input[type="submit"] {
             <table width="50%" border=1 cellpadding=5 cellspacing=0 style="margin-bottom:10px;">
                 <tr>
                     <td>
-                        <center>NEW PRODUCT</center>
+                        <center><strong>NEW PRODUCT</strong></center>
                     </td>
                 </tr>
             </table>
@@ -79,4 +88,4 @@ input[type="submit"] {
 
 
 
-<?=template_footer()?>
+<?= template_footer() ?>

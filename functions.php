@@ -1,17 +1,26 @@
 <?php
+
+/**
+ * pdo_connect_mysql
+ *
+ * return une instance de la classe PDO
+ * 
+ * @return PDO|never
+ */
 function pdo_connect_mysql() {
-    
     $DATABASE_HOST = 'localhost';
     $DATABASE_USER = 'root';
     $DATABASE_PASS = '';
     $DATABASE_NAME = 'shoppingcart';
+
     try {
-    	return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
+        $pdo = new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8;port=3306', $DATABASE_USER, $DATABASE_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
     } catch (PDOException $exception) {
-    	// S'il y a une erreur avec la connexion, arrête le script et affiche l'erreur.
-    	exit('Failed to connect to database!');
+        // S'il y a une erreur avec la connexion, arrête le script et affiche l'erreur.
+        exit('Failed to connect to database! ' . $exception->getMessage());
     }
-  
 }
 
 
@@ -34,10 +43,12 @@ echo <<<EOT
                     
                 </nav>
                 <div class="link_cart">
-                    
-                    
-                    <a href="index.php?page=cart">cart</a>
+                <a href="index.php?page=new_product">new product</a>
                 </div>
+                <div class="link_cart">               
+                <a href="index.php?page=cart">cart</a>               
+                </div>
+               
 
             </div>
         </header>
@@ -54,9 +65,9 @@ echo <<<EOT
             <div class="content-wrapper">
                <ul>
                  <P > <span style="font-size:20px;font-weight:bold">contact us on : </span> </P>
-                 <li>FACEBOOK :  Gaming_accessories_facebook</li>
-                 <li>INSTAGRAM : Gaming_accessories_instagram</li>
-                 <li>TWITTER :   Gaming_accessories_twitter</li>
+                 <li>FACEBOOK :  Gaming_facebook</li>
+                 <li>INSTAGRAM : Gaming_instagram</li>
+                 <li>TWITTER :   Gaming_twitter</li>
                </ul>  
             </div>
         </footer>

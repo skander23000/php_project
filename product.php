@@ -1,5 +1,5 @@
 <?php
-// Vérifiez que le paramètre id est spécifié dans l'URL
+// on vérifie que le paramètre id est spécifié dans l'URL
 if (isset($_GET['id'])) {
     // Préparation de l'instruction et exécution, empêche l'injection SQL
     $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
